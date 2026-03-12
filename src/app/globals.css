@@ -1,0 +1,30 @@
+@import "tailwindcss";
+
+@theme {
+  --color-foreground: #1D1D1F;
+  --color-secondary: #86868B;
+  --color-orb-pink: #FFD1FF;
+  --color-orb-blue: #D1EEFF;
+  --color-orb-lavender: #E5D1FF;
+}
+
+@layer base {
+  body {
+    background: radial-gradient(circle at center, #FFFFFF 0%, #F5F5F7 100%);
+    background-attachment: fixed;
+    color: var(--color-foreground);
+    /* Disable default Y scrolling since we use custom scroll engine */
+    overflow-y: hidden;
+    height: 100vh;
+    width: 100vw;
+  }
+}
+
+@layer utilities {
+  .glass {
+    background: rgba(255, 255, 255, 0.45);
+    backdrop-filter: blur(24px) saturate(150%);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
+  }
+}
