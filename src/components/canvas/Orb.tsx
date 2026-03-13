@@ -39,29 +39,28 @@ export default function Orb({ zProgress }: { zProgress: MotionValue<number> }) {
     let targetScaleY = 1;
     let targetScaleZ = 1;
 
-    if (z > 0.15 && z < 0.6) {
-      // Services Journey: shrink and move left
+    if (z > 0.2 && z < 0.65) {
+      // Services Journey (stops 1-5: 0.26–0.58): shrink and move left
       targetX = -2;
       targetScaleX = 0.8;
       targetScaleY = 0.8;
       targetScaleZ = 0.8;
-    } else if (z >= 0.6 && z < 0.85) {
-      // Process Framework: back to center, slightly smaller
+    } else if (z >= 0.65 && z < 0.9) {
+      // Process Framework (stop 6: 0.72): back to center, slightly smaller
       targetX = 0;
       targetScaleX = 0.8;
       targetScaleY = 0.8;
       targetScaleZ = 0.8;
-      // Increase noise strength for split effect illusion
       uniforms.uNoiseStrength.value = THREE.MathUtils.lerp(uniforms.uNoiseStrength.value, 0.5, 0.05);
-    } else if (z >= 0.85) {
-      // Climax: Morph to flat wide glass rectangle
+    } else if (z >= 0.9) {
+      // Contact Climax (stop 7: 1.0): morph to flat wide glass rectangle
       targetX = 0;
       targetScaleX = 4;
       targetScaleY = 2.5;
       targetScaleZ = 0.1;
-      uniforms.uNoiseStrength.value = THREE.MathUtils.lerp(uniforms.uNoiseStrength.value, 0.0, 0.1); // flatten out the noise
+      uniforms.uNoiseStrength.value = THREE.MathUtils.lerp(uniforms.uNoiseStrength.value, 0.0, 0.1);
     } else {
-      // Hero
+      // Hero (stop 0: 0.0)
       targetX = 0;
       targetScaleX = 1;
       targetScaleY = 1;
