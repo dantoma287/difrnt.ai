@@ -3,7 +3,6 @@
 import { motion, MotionValue, useTransform } from 'framer-motion';
 
 export default function HeroPhase({ zProgress }: { zProgress: MotionValue<number> }) {
-  // Visible at stop 0 (0.0), exits before stop 1 (0.26)
   const opacity = useTransform(zProgress, [0, 0.1, 0.22], [1, 1, 0]);
   const scale = useTransform(zProgress, [0, 0.26], [1, 1.3]);
   const y = useTransform(zProgress, [0, 0.26], [0, -80]);
@@ -12,25 +11,25 @@ export default function HeroPhase({ zProgress }: { zProgress: MotionValue<number
 
   return (
     <motion.div
-      className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none"
+      className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none px-6"
       style={{ opacity, scale, y, filter, visibility }}
     >
-      <p className="text-sm tracking-[0.3em] uppercase text-[var(--color-secondary)] mb-4 font-light">
+      <p className="text-xs md:text-sm tracking-[0.3em] uppercase text-[var(--color-secondary)] mb-4 font-light">
         AI Systems Studio
       </p>
-      <h1 className="text-8xl md:text-9xl font-bold tracking-tighter text-[var(--color-foreground)]">
+      <h1 className="text-5xl md:text-8xl lg:text-9xl font-bold tracking-tighter text-[var(--color-foreground)] text-center">
         difrnt.ai
       </h1>
-      <p className="mt-6 text-2xl tracking-wide text-[var(--color-secondary)] max-w-xl text-center font-light leading-relaxed">
+      <p className="mt-4 md:mt-6 text-lg md:text-2xl tracking-wide text-[var(--color-secondary)] max-w-xl text-center font-light leading-relaxed">
         We design, build, and deploy intelligent systems that transform how businesses operate — from autonomous agents to real-time decision engines.
       </p>
-      <div className="mt-10 flex gap-8 text-xs tracking-widest uppercase text-[var(--color-secondary)]">
+      <div className="mt-6 md:mt-10 flex gap-4 md:gap-8 text-[10px] md:text-xs tracking-widest uppercase text-[var(--color-secondary)]">
         <span>Bucharest</span>
         <span>Since 2018</span>
         <span>Enterprise & Startup</span>
       </div>
       <motion.p
-        className="absolute bottom-12 text-sm tracking-widest text-[var(--color-secondary)] uppercase"
+        className="absolute bottom-8 md:bottom-12 text-xs md:text-sm tracking-widest text-[var(--color-secondary)] uppercase"
         animate={{ opacity: [0.3, 1, 0.3] }}
         transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
       >

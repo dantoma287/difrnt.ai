@@ -21,7 +21,6 @@ const phases = [
 ];
 
 export default function ProcessFramework({ zProgress }: { zProgress: MotionValue<number> }) {
-  // Active at stop 6 (0.72), between services end (0.58) and contact (1.0)
   const opacity = useTransform(zProgress, [0.63, 0.72, 0.85, 0.92], [0, 1, 1, 0]);
   const scale = useTransform(zProgress, [0.63, 0.72, 0.85, 0.92], [0.8, 1, 1, 1.2]);
   const visibility = useTransform(zProgress, (v) =>
@@ -32,39 +31,39 @@ export default function ProcessFramework({ zProgress }: { zProgress: MotionValue
 
   return (
     <motion.div
-      className="absolute inset-0 pointer-events-none flex flex-col items-center justify-center px-12 md:px-24"
+      className="absolute inset-0 pointer-events-none flex flex-col items-center justify-center px-6 md:px-24"
       style={{ opacity, scale, visibility }}
     >
-      <p className="text-sm tracking-[0.3em] uppercase text-[var(--color-secondary)] mb-6 font-light">
+      <p className="text-xs md:text-sm tracking-[0.3em] uppercase text-[var(--color-secondary)] mb-4 md:mb-6 font-light">
         How We Work
       </p>
-      <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-[var(--color-foreground)] mb-12 text-center">
+      <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-[var(--color-foreground)] mb-8 md:mb-12 text-center">
         From insight to production.
       </h2>
 
-      <div className="w-full max-w-5xl flex justify-between gap-8">
+      <div className="w-full max-w-5xl flex flex-col md:flex-row justify-between gap-4 md:gap-8">
         {phases.map((phase, i) => {
           return (
             <motion.div
               key={i}
-              className="glass p-8 rounded-3xl flex-1 text-center"
+              className="glass p-6 md:p-8 rounded-2xl md:rounded-3xl flex-1 text-center"
             >
               <span className="text-xs tracking-[0.2em] uppercase text-[var(--color-secondary)] font-medium">{phase.step}</span>
-              <h3 className="text-2xl font-medium tracking-tight mb-4 mt-2">{phase.title}</h3>
-              <p className="text-[var(--color-secondary)] font-light text-sm leading-relaxed">{phase.desc}</p>
+              <h3 className="text-xl md:text-2xl font-medium tracking-tight mb-2 md:mb-4 mt-2">{phase.title}</h3>
+              <p className="text-[var(--color-secondary)] font-light text-xs md:text-sm leading-relaxed">{phase.desc}</p>
             </motion.div>
           );
         })}
       </div>
 
       <motion.div
-        className="absolute bottom-12 text-center w-full"
+        className="absolute bottom-8 md:bottom-12 text-center w-full px-6"
         style={{ opacity: footerOpacity }}
       >
-        <p className="text-xs text-[var(--color-secondary)] tracking-widest uppercase mb-2">
+        <p className="text-[10px] md:text-xs text-[var(--color-secondary)] tracking-widest uppercase mb-2">
           Founded in 2018 in Bucharest
         </p>
-        <p className="text-sm font-light text-[var(--color-secondary)] max-w-lg mx-auto leading-relaxed">
+        <p className="text-xs md:text-sm font-light text-[var(--color-secondary)] max-w-lg mx-auto leading-relaxed">
           Seven years of combining deep digital marketing expertise with ethical AI innovation. We've helped startups and enterprises across Europe ship intelligent systems that actually work.
         </p>
       </motion.div>

@@ -8,8 +8,7 @@ import { useSpring, MotionValue } from 'framer-motion';
 export default function Orb({ zProgress }: { zProgress: MotionValue<number> }) {
   const meshRef = useRef<THREE.Mesh>(null);
   const materialRef = useRef<THREE.MeshPhysicalMaterial>(null);
-  
-  // Custom simple noise for vertex shader
+
   const uniforms = useMemo(() => ({
     uTime: { value: 0 },
     uSpeed: { value: 0.2 },
@@ -17,50 +16,46 @@ export default function Orb({ zProgress }: { zProgress: MotionValue<number> }) {
     uNoiseStrength: { value: 0.2 },
   }), []);
 
-  // Mouse tracking with framer-motion spring
   const mouseX = useSpring(0, { stiffness: 50, damping: 20 });
   const mouseY = useSpring(0, { stiffness: 50, damping: 20 });
 
   useFrame((state) => {
     if (!meshRef.current || !materialRef.current) return;
-    
-    // Update simple time uniform
+
     uniforms.uTime.value = state.clock.elapsedTime;
-    
-    // Smoothly track mouse for slight rotation/translation
+
     mouseX.set(state.pointer.x);
     mouseY.set(state.pointer.y);
-    
+
     const z = zProgress.get();
 
-    // Scene Choreography tracking
     let targetX = 0;
     let targetScaleX = 1;
     let targetScaleY = 1;
     let targetScaleZ = 1;
 
     if (z > 0.2 && z < 0.65) {
-      // Services Journey (stops 1-5: 0.26–0.58): shrink and move left
+      // Services Journey: shrink and move left
       targetX = -2;
       targetScaleX = 0.8;
       targetScaleY = 0.8;
       targetScaleZ = 0.8;
     } else if (z >= 0.65 && z < 0.9) {
-      // Process Framework (stop 6: 0.72): back to center, slightly smaller
+      // Process Framework: back to center
       targetX = 0;
       targetScaleX = 0.8;
       targetScaleY = 0.8;
       targetScaleZ = 0.8;
       uniforms.uNoiseStrength.value = THREE.MathUtils.lerp(uniforms.uNoiseStrength.value, 0.5, 0.05);
     } else if (z >= 0.9) {
-      // Contact Climax (stop 7: 1.0): morph to flat wide glass rectangle
+      // Contact: morph to flat glass rectangle
       targetX = 0;
       targetScaleX = 4;
       targetScaleY = 2.5;
       targetScaleZ = 0.1;
       uniforms.uNoiseStrength.value = THREE.MathUtils.lerp(uniforms.uNoiseStrength.value, 0.0, 0.1);
     } else {
-      // Hero (stop 0: 0.0)
+      // Hero
       targetX = 0;
       targetScaleX = 1;
       targetScaleY = 1;
@@ -69,7 +64,6 @@ export default function Orb({ zProgress }: { zProgress: MotionValue<number> }) {
     }
 
     meshRef.current.position.x = THREE.MathUtils.lerp(meshRef.current.position.x, targetX, 0.05);
-
     meshRef.current.scale.x = THREE.MathUtils.lerp(meshRef.current.scale.x, targetScaleX, 0.05);
     meshRef.current.scale.y = THREE.MathUtils.lerp(meshRef.current.scale.y, targetScaleY, 0.05);
     meshRef.current.scale.z = THREE.MathUtils.lerp(meshRef.current.scale.z, targetScaleZ, 0.05);
@@ -84,8 +78,7 @@ export default function Orb({ zProgress }: { zProgress: MotionValue<number> }) {
       mouseX.get() * 0.5,
       0.1
     );
-    
-    // Slow idle rotation
+
     meshRef.current.rotation.z += 0.001;
   });
 
@@ -101,7 +94,6 @@ export default function Orb({ zProgress }: { zProgress: MotionValue<number> }) {
       uniform float uNoiseDensity;
       uniform float uNoiseStrength;
 
-      // GLSL Simplex 3D Noise function
       vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
       vec4 mod289(vec4 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
       vec4 permute(vec4 x) { return mod289(((x*34.0)+1.0)*x); }
